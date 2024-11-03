@@ -44,9 +44,13 @@ export function playerAttacks(e){
         cpu.board.receiveAttack(coords);
         displayBoard(cpu.board, false);
         if(cpu.board.allShipsSunk()){
-            alert("You won!")
-            location.reload();
+            setTimeout(function() {
+                alert("You won!");
+                location.reload();
+            }, 100);
+            
         }
+        
         enemyAttacks();
     }
     
@@ -59,7 +63,10 @@ function enemyAttacks(){
     }while(!player.board.receiveAttack(coords))
         displayBoard(player.board, true);
         if(player.board.allShipsSunk()){
-            alert("You lost!");
+            setTimeout(function() {
+                alert("You lost!");
+                location.reload();
+            }, 100);
             location.reload();
         }
 }

@@ -29,7 +29,7 @@ export function setupGameboard(whichBoard, size = window.size){
             tile.setAttribute("class", "tile");
             tile.setAttribute("data-coord", `[${i}, ${j}]`);
             board.appendChild(tile);
-            tile.addEventListener("click", playerAttack);
+            if(isCPU)tile.addEventListener("click", playerAttack);
         }
     }
 }
