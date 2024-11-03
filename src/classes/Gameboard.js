@@ -7,7 +7,7 @@ const Status = {
 
 
 export default class Gameboard{
-    constructor(size){
+    constructor(size = window.size){
         this.size = size;
         this.board = [];
         this.initializeBoard()
