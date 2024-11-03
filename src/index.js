@@ -38,3 +38,28 @@ export function randomize(isPlayer){
 randomize(true); 
 randomize(false); 
 
+export function playerAttacks(e){
+    if(e.srcElement.dataset.coord){
+        const coords = JSON.parse(e.srcElement.dataset.coord);
+        cpu.board.receiveAttack(coords);
+        displayBoard(cpu.board, false);
+        if(cpu.board.allShipsSunk()){
+            alert("You won!")
+            location.reload();
+        }
+        enemyAttacks();
+    }
+    
+}
+
+function enemyAttacks(){
+    let coords;
+    do{
+        coords = [Math.floor(Math.random() * window.size), Math.floor(Math.random() * window.size)];
+    }while(!player.board.receiveAttack(coords))
+        displayBoard(player.board, true);
+        if(player.board.allShipsSunk()){
+            alert("You lost!");
+            location.reload();
+        }
+}

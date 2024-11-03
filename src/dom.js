@@ -1,12 +1,15 @@
-import { randomize } from "./index.js";
+import { randomize, playerAttacks } from "./index.js";
 
 export function setupGameboard(whichBoard, size = window.size){
     let parent;
+    let isCPU;
     if(whichBoard == "player"){
         parent = document.querySelector(".player-outer-board");
+        isCPU = false;
     }
     else if(whichBoard == "cpu"){
         parent = document.querySelector(".cpu-outer-board"); 
+        isCPU = true;
     }
     const board = parent.querySelector(".board");
     const letters = parent.querySelector(".letters");
@@ -26,6 +29,7 @@ export function setupGameboard(whichBoard, size = window.size){
             tile.setAttribute("class", "tile");
             tile.setAttribute("data-coord", `[${i}, ${j}]`);
             board.appendChild(tile);
+            tile.addEventListener("click", playerAttack);
         }
     }
 }
@@ -85,4 +89,9 @@ randomButton.addEventListener("click", randomButtonClicked);
 
 function randomButtonClicked(){
     randomize(true);
+}
+
+function playerAttack(e){
+    playerAttacks(e);
+    randomButton.disabled = true;
 }

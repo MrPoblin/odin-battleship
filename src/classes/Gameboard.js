@@ -46,7 +46,11 @@ export default class Gameboard{
         return true;
     }
     receiveAttack(coords){
-        if(typeof this.board[coords[0]][coords[1]] == "object"){
+        if(this.board[coords[0]][coords[1]] == null){
+            this.board[coords[0]][coords[1]] = Status.MISSED;
+            return true;
+        }
+        else if(typeof this.board[coords[0]][coords[1]] == "object"){
             this.board[coords[0]][coords[1]].hit();
             this.board[coords[0]][coords[1]] = Status.DAMAGED;
             return true;
@@ -54,15 +58,11 @@ export default class Gameboard{
         else if(typeof this.board[coords[0]][coords[1]] == "number"){
             return false;
         }
-        else{
-            this.board[coords[0]][coords[1]] = Status.MISSED;
-            return true;
-        }
     }
     allShipsSunk(){
         for(let i = 0; i < this.size; i++){
             for(let j = 0; j < this.size; j++){
-                if(typeof this.board[i][j] == "object"){
+                if(typeof this.board[i][j] == "object" && this.board[i][j] !== null){
                     return false;
                 }
             }
